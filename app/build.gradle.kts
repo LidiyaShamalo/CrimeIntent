@@ -1,6 +1,8 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
+    id("kotlin-kapt")
+
 }
 
 android {
@@ -26,6 +28,11 @@ android {
             )
         }
     }
+    kapt{
+        arguments{
+            arg("room.schemaLocation", "some/path/goes/here/")
+        }
+    }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
@@ -39,6 +46,10 @@ dependencies {
 
     implementation("androidx.lifecycle:lifecycle-extensions:2.2.0")
     implementation("androidx.recyclerview:recyclerview:1.4.0")
+
+    implementation("androidx.room:room-runtime:2.6.1")
+    kapt("androidx.room:room-compiler:2.6.1")
+
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
