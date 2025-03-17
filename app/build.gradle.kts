@@ -43,12 +43,18 @@ android {
 }
 
 dependencies {
-
+    implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.8.7")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.8.7")
     implementation("androidx.lifecycle:lifecycle-extensions:2.2.0")
-    implementation("androidx.recyclerview:recyclerview:1.4.0")
 
-    implementation("androidx.room:room-runtime:2.6.1")
-    kapt("androidx.room:room-compiler:2.6.1")
+    implementation(libs.androidx.lifecycle.extensions)
+    implementation(libs.androidx.recyclerview)
+
+    implementation (libs.androidx.lifecycle.livedata.ktx)
+    implementation (libs.androidx.lifecycle.viewmodel.ktx)
+
+    implementation(libs.androidx.room.runtime)
+    kapt(libs.androidx.room.compiler)
 
 
     implementation(libs.androidx.core.ktx)
