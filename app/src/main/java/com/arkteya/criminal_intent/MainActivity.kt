@@ -7,7 +7,7 @@ import java.util.*
 
 private const val TAG = "MainActivity"
 
-class MainActivity : AppCompatActivity(),
+class MainActivity : AppCompatActivity (),
     CrimeListFragment.Callbacks {
 
     override fun onCreate(savedInstanceState: Bundle?) {
