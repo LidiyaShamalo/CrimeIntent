@@ -32,6 +32,7 @@ android {
         arguments{
             arg("room.schemaLocation", "some/path/goes/here/")
         }
+            // correctErrorTypes = true
     }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11

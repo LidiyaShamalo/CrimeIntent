@@ -2,25 +2,23 @@ package com.arkteya.criminal_intent
 
 import android.os.Bundle
 import android.util.Log
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
-import java.util.UUID
+import java.util.*
 
-private  const val TAG = "MainActivity"
+private const val TAG = "MainActivity"
 
 class MainActivity : AppCompatActivity(),
-CrimeListFragment.Callbacks {
+    CrimeListFragment.Callbacks {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
         setContentView(R.layout.activity_main)
 
-        val currentFragment = supportFragmentManager.findFragmentById(R.id.fragment_container)
+        val currentFragment =
+            supportFragmentManager.findFragmentById(R.id.fragment_container)
 
-        if(currentFragment == null) {
-            val fragment = CrimeListFragment.newInstance()
+        if (currentFragment == null) {
+            val fragment = CrimeListFragment()
             supportFragmentManager
                 .beginTransaction()
                 .add(R.id.fragment_container, fragment)
@@ -33,7 +31,7 @@ CrimeListFragment.Callbacks {
         supportFragmentManager
             .beginTransaction()
             .replace(R.id.fragment_container, fragment)
-            .addToBackStack(null) // добавление фрагмента с подробностями в обратны стек, т.е. для нажатия кнопки "Назад"
+            .addToBackStack(null)
             .commit()
     }
 }

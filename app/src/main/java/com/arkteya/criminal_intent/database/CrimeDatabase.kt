@@ -8,11 +8,17 @@ import com.arkteya.criminal_intent.Crime
 import java.util.Date
 import java.util.UUID
 
-@Database(entities = [Crime::class], version = 1, exportSchema = false)
+
+private const val DATABASE_NAME = "crime-database"
+
+@Database(entities = [ Crime::class ], version=1, exportSchema = false)
 @TypeConverters(CrimeTypeConverters::class)
 abstract class CrimeDatabase : RoomDatabase() {
+
     abstract fun crimeDao(): CrimeDao
 }
+
+
 class CrimeTypeConverters{
 
     @TypeConverter
