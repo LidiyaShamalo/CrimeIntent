@@ -18,9 +18,13 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.CheckBox
 import android.widget.EditText
+import android.widget.ImageButton
+import android.widget.ImageView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelStore
+import java.io.File
 import java.util.*
 
 private const val ARG_CRIME_ID = "crime_id"
@@ -37,8 +41,11 @@ class CrimeFragment : Fragment(), DatePickerFragment.Callbacks {
     private lateinit var solvedCheckBox: CheckBox
     private lateinit var reportButton: Button
     private lateinit var suspectButton : Button
+    private lateinit var photoButton: ImageButton
+    private lateinit var photoView: View
+    private lateinit var photoFile: File
     private val crimeDetailViewModel: CrimeDetailViewModel by lazy {
-        ViewModelProviders.of(this).get(CrimeDetailViewModel::class.java)
+        ViewModelProviders.of(this)[CrimeDetailViewModel::class.java]
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -60,6 +67,8 @@ class CrimeFragment : Fragment(), DatePickerFragment.Callbacks {
         solvedCheckBox = view.findViewById(R.id.crime_solved) as CheckBox
         reportButton = view.findViewById(R.id.crime_report) as Button
         suspectButton = view.findViewById(R.id.crime_suspect) as Button
+        photoButton = view.findViewById(R.id.crime_camera) as ImageButton
+        photoView = view.findViewById(R.id.crime_photo) as ImageView
 
         return view
     }
@@ -73,6 +82,7 @@ class CrimeFragment : Fragment(), DatePickerFragment.Callbacks {
             Observer { crime ->
                 crime?.let {
                     this.crime = crime
+                    photoFile = crimeDetailViewModel.getPhotoFile(crime)
                     updateUI()
                 }
             })
