@@ -21,11 +21,12 @@ import android.widget.CheckBox
 import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.ImageView
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import androidx.core.content.FileProvider
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import androidx.lifecycle.ViewModelStore
 import java.io.File
 import java.util.*
 
@@ -45,7 +46,7 @@ class CrimeFragment : Fragment(), DatePickerFragment.Callbacks {
     private lateinit var reportButton: Button
     private lateinit var suspectButton : Button
     private lateinit var photoButton: ImageButton
-    private lateinit var photoView: View
+    private lateinit var photoView: ImageView
     private lateinit var photoFile: File
     private lateinit var photoUri: Uri
     private val crimeDetailViewModel: CrimeDetailViewModel by lazy {
@@ -198,6 +199,12 @@ class CrimeFragment : Fragment(), DatePickerFragment.Callbacks {
         crimeDetailViewModel.saveCrime(crime)
     }
 
+    override fun onDetach() {
+        super.onDetach()
+        requireActivity().revokeUriPermission(photoUri,
+            Intent.FLAG_GRANT_WRITE_URI_PERMISSION)
+    }
+
     override fun onDateSelected(date: Date) {
         crime.date = date
         updateUI()
@@ -211,6 +218,15 @@ class CrimeFragment : Fragment(), DatePickerFragment.Callbacks {
             jumpDrawablesToCurrentState()
         }
         if (crime.suspect.isNotEmpty()) suspectButton.text = crime.suspect
+        updatePhotoView()
+    }
+    private fun updatePhotoView(){
+        if (photoFile.exists()){
+            val bitmap = getScaledBitmap(photoFile.path, requireActivity())
+            photoView.setImageBitmap(bitmap)
+        } else {
+            photoView.setImageDrawable(null)
+        }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -238,6 +254,11 @@ class CrimeFragment : Fragment(), DatePickerFragment.Callbacks {
                     crimeDetailViewModel.saveCrime(crime)
                     suspectButton.text = suspect
                 }
+            }
+            requestCode == REQUEST_PHOTO -> {
+                requireActivity().revokeUriPermission(photoUri,
+                    Intent.FLAG_GRANT_WRITE_URI_PERMISSION)
+                updatePhotoView()
             }
         }
     }
