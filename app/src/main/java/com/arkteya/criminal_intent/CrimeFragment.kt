@@ -168,10 +168,10 @@ class CrimeFragment : Fragment(), DatePickerFragment.Callbacks {
             }
         }
         photoView.setOnClickListener{
-            val photoDialogFragment = PhotoDialogFragment()
-            val manager = parentFragmentManager
-            photoDialogFragment.show(manager, DIALOG_PHOTO)
+            val dialogFragment = PhotoDialogFragment.newInstance(photoUri.toString())
+            dialogFragment.show(parentFragmentManager, DIALOG_PHOTO)
         }
+
         photoButton.apply {
             val packageManager: PackageManager = requireActivity().packageManager
 
