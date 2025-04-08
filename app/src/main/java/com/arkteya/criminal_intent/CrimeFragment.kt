@@ -21,17 +21,17 @@ import android.widget.CheckBox
 import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.ImageView
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
 import androidx.core.content.FileProvider
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import java.io.File
-import java.util.*
+import java.util.Date
+import java.util.UUID
 
 private const val ARG_CRIME_ID = "crime_id"
 private const val DIALOG_DATE = "DialogDate"
+private const val DIALOG_PHOTO = "DialogPhoto"
 private const val REQUEST_DATE = 0
 private const val REQUEST_CONTACT = 1
 private const val REQUEST_PHOTO = 2
@@ -166,6 +166,11 @@ class CrimeFragment : Fragment(), DatePickerFragment.Callbacks {
             if (resolvedActivity == null) {
                 isEnabled = false
             }
+        }
+        photoView.setOnClickListener{
+            val photoDialogFragment = PhotoDialogFragment()
+            val manager = parentFragmentManager
+            photoDialogFragment.show(manager, DIALOG_PHOTO)
         }
         photoButton.apply {
             val packageManager: PackageManager = requireActivity().packageManager
