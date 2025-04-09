@@ -5,6 +5,9 @@
     <string name="crime_title_label">Заголовок</string>
     <string name="crime_details_label">Подробности</string>
     <string name="crime_solved_label">Решено</string>
+    <string name="crime_photo_button_description">Сфотографируйте место преступления</string>
+    <string name="crime_photo_no_image_description">Фото с места преступления (не установлено)</string>
+    <string name="crime_photo_image_description">Фото с места преступления (установлено)</string>
     <string name="new_crime">Новое преступление</string>
     <string name="list_empty">Список пуст</string>
     <string name="crime_suspect_text">Выберите Подозреваемого</string>
