@@ -26,7 +26,9 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import java.io.File
+import java.text.SimpleDateFormat
 import java.util.Date
+import java.util.Locale
 import java.util.UUID
 
 private const val ARG_CRIME_ID = "crime_id"
@@ -35,7 +37,7 @@ private const val DIALOG_PHOTO = "DialogPhoto"
 private const val REQUEST_DATE = 0
 private const val REQUEST_CONTACT = 1
 private const val REQUEST_PHOTO = 2
-private const val DATE_FORMAT = "EEE, MMM, dd"
+private const val DATE_FORMAT = "EEE, dd MMMM yyyy"
 
 class CrimeFragment : Fragment(), DatePickerFragment.Callbacks {
 
@@ -210,14 +212,15 @@ class CrimeFragment : Fragment(), DatePickerFragment.Callbacks {
             Intent.FLAG_GRANT_WRITE_URI_PERMISSION)
     }
 
-    override fun onDateSelected(date: Date) {
+    override fun onDateSelected(date: Date, formattedDate: String) {
         crime.date = date
         updateUI()
     }
 
     private fun updateUI() {
         titleField.setText(crime.title)
-        dateButton.text = crime.date.toString()
+             val dateFormat = SimpleDateFormat(DATE_FORMAT, Locale.getDefault())
+        dateButton.text = dateFormat.format(crime.date).toString()
         solvedCheckBox. apply {
             isChecked = crime.isSolved
             jumpDrawablesToCurrentState()
